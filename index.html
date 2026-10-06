@@ -306,7 +306,6 @@ tbody tr:hover {
   </div>
 </header>
 
-
 <main>
 
 <!-- HOME -->
@@ -342,10 +341,12 @@ tbody tr:hover {
 
   <div class="section-box">
     <div class="card-title">This Week</div>
+
     <p>
       Explore the Anoracharts Hot 100, albums, artists, awards and
       all-time chart records.
     </p>
+
   </div>
 
 </section>
@@ -540,6 +541,19 @@ const pages = [
 ];
 
 
+/* --------------------------------------------------
+   CACHE
+-------------------------------------------------- */
+
+let latestChartData = null;
+let latestChartWeek = "";
+let loadingChart = false;
+
+
+/* --------------------------------------------------
+   PAGE NAVIGATION
+-------------------------------------------------- */
+
 function showPage(page) {
 
   pages.forEach(name => {
@@ -551,17 +565,21 @@ function showPage(page) {
       document.getElementById("nav-" + name);
 
     if (element) {
+
       element.classList.toggle(
         "active",
         name === page
       );
+
     }
 
     if (nav) {
+
       nav.classList.toggle(
         "active",
         name === page
       );
+
     }
 
   });
@@ -571,13 +589,12 @@ function showPage(page) {
     behavior: "smooth"
   });
 
-  if (page === "hot100") {
-    loadChart(
-      document.getElementById("weekSelect").value
-    );
-  }
 }
 
+
+/* --------------------------------------------------
+   HTML SAFETY
+-------------------------------------------------- */
 
 function escapeHTML(value) {
 
@@ -594,8 +611,13 @@ function escapeHTML(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+
 }
 
+
+/* --------------------------------------------------
+   DATA HELPERS
+-------------------------------------------------- */
 
 function getValue(row, names) {
 
@@ -610,12 +632,15 @@ function getValue(row, names) {
       row[name] !== null &&
       row[name] !== undefined
     ) {
+
       return row[name];
+
     }
 
   }
 
   return "";
+
 }
 
 
@@ -625,21 +650,28 @@ function getRows(data) {
     data &&
     Array.isArray(data.data)
   ) {
+
     return data.data;
+
   }
 
   if (
     data &&
     Array.isArray(data.rows)
   ) {
+
     return data.rows;
+
   }
 
   if (Array.isArray(data)) {
+
     return data;
+
   }
 
   return [];
+
 }
 
 
@@ -652,6 +684,7 @@ function getRank(row, index) {
     "position",
     "Position"
   ]) || index + 1;
+
 }
 
 
@@ -665,6 +698,7 @@ function getSong(row) {
     "track",
     "Track"
   ]);
+
 }
 
 
@@ -676,6 +710,7 @@ function getArtist(row) {
     "artists",
     "Artists"
   ]);
+
 }
 
 
@@ -689,6 +724,7 @@ function getPrevious(row) {
     "previousRank",
     "Previous Rank"
   ]);
+
 }
 
 
@@ -698,6 +734,7 @@ function getPeak(row) {
     "peak",
     "Peak"
   ]);
+
 }
 
 
@@ -709,6 +746,7 @@ function getWeeks(row) {
     "weeksOnChart",
     "Weeks on Chart"
   ]);
+
 }
 
 
@@ -720,8 +758,13 @@ function getPoints(row) {
     "weeklyPoints",
     "Weekly Points"
   ]);
+
 }
 
+
+/* --------------------------------------------------
+   MOVEMENT
+-------------------------------------------------- */
 
 function movement(rank, previous) {
 
@@ -730,7 +773,9 @@ function movement(rank, previous) {
     previous === null ||
     previous === undefined
   ) {
+
     return '<span class="new">NEW</span>';
+
   }
 
   const current =
@@ -743,27 +788,38 @@ function movement(rank, previous) {
     !Number.isFinite(current) ||
     !Number.isFinite(old)
   ) {
+
     return '<span class="muted">—</span>';
+
   }
 
   if (current === old) {
+
     return '<span class="muted">—</span>';
+
   }
 
   const difference =
     old - current;
 
   if (difference > 0) {
+
     return '<span class="up">▲ ' +
       difference +
       '</span>';
+
   }
 
   return '<span class="down">▼ ' +
     Math.abs(difference) +
     '</span>';
+
 }
 
+
+/* --------------------------------------------------
+   RENDER CHART
+-------------------------------------------------- */
 
 function renderChart(data) {
 
@@ -776,6 +832,22 @@ function renderChart(data) {
     );
 
   body.innerHTML = "";
+
+
+  if (!rows.length) {
+
+    body.innerHTML = `
+      <tr>
+        <td colspan="8" class="muted">
+          No chart data available.
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
 
   rows.forEach(
     (row, index) => {
@@ -801,8 +873,10 @@ function renderChart(data) {
       const points =
         getPoints(row);
 
+
       const tr =
         document.createElement("tr");
+
 
       tr.innerHTML = `
 
@@ -856,6 +930,7 @@ function renderChart(data) {
 
       `;
 
+
       body.appendChild(tr);
 
     }
@@ -864,11 +939,13 @@ function renderChart(data) {
 
   const week =
     data.week ||
+    latestChartWeek ||
     "";
 
   const count =
     data.count ||
     rows.length;
+
 
   document.getElementById(
     "status"
@@ -892,17 +969,17 @@ function renderChart(data) {
     week || "—";
 
 
-  if (rows.length) {
-
-    document.getElementById(
-      "homeTopSong"
-    ).textContent =
-      getSong(rows[0]) || "—";
-
-  }
+  document.getElementById(
+    "homeTopSong"
+  ).textContent =
+    getSong(rows[0]) || "—";
 
 }
 
+
+/* --------------------------------------------------
+   API
+-------------------------------------------------- */
 
 async function fetchAPI(query) {
 
@@ -916,62 +993,61 @@ async function fetchAPI(query) {
     );
 
   if (!response.ok) {
+
     throw new Error(
       "API request failed"
     );
+
   }
 
   return await response.json();
+
 }
 
 
-async function loadChart(week = "") {
+/* --------------------------------------------------
+   LOAD INITIAL DATA
+   ONE API REQUEST ONLY
+-------------------------------------------------- */
+
+async function initializeChart() {
 
   try {
-
-    let query =
-      "chart=hot100";
-
-    if (week) {
-
-      query +=
-        "&week=" +
-        encodeURIComponent(week);
-
-    }
-
-    const data =
-      await fetchAPI(query);
-
-    renderChart(data);
-
-  } catch (error) {
-
-    console.error(error);
 
     document.getElementById(
       "status"
     ).textContent =
-      "Unable to load chart data.";
-
-  }
-
-}
+      "Loading chart data...";
 
 
-async function loadWeeks() {
-
-  try {
+    /*
+      This is the ONLY request made when
+      the website first opens.
+    */
 
     const data =
       await fetchAPI(
         "chart=hot100"
       );
 
+
+    latestChartData =
+      data;
+
+    latestChartWeek =
+      data.week || "";
+
+
+    /*
+      Build week selector from the
+      same response.
+    */
+
     const select =
       document.getElementById(
         "weekSelect"
       );
+
 
     const weeks =
       Array.isArray(
@@ -980,78 +1056,236 @@ async function loadWeeks() {
         ? data.availableWeeks
         : [];
 
+
     select.innerHTML = "";
 
-    if (!weeks.length) {
 
-      select.innerHTML =
-        `<option value="${escapeHTML(data.week || "")}">
-          ${escapeHTML(data.week || "Latest")}
-        </option>`;
+    if (weeks.length) {
 
-      return;
-    }
+      weeks
+        .slice()
+        .reverse()
+        .forEach(
+          week => {
 
-    weeks
-      .slice()
-      .reverse()
-      .forEach(
-        week => {
+            const option =
+              document.createElement(
+                "option"
+              );
 
-          const option =
-            document.createElement(
-              "option"
+            option.value =
+              week;
+
+            option.textContent =
+              formatWeek(week);
+
+            select.appendChild(
+              option
             );
 
-          option.value =
-            week;
+          }
+        );
 
-          option.textContent =
-            formatWeek(week);
 
-          select.appendChild(
-            option
-          );
+      if (data.week) {
 
-        }
+        select.value =
+          data.week;
+
+      }
+
+    } else {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        data.week || "";
+
+      option.textContent =
+        formatWeek(
+          data.week
+        );
+
+      select.appendChild(
+        option
       );
 
-
-    if (data.week) {
-      select.value =
-        data.week;
     }
+
+
+    /*
+      Render the exact same response.
+      No second API call.
+    */
+
+    renderChart(data);
+
 
   } catch (error) {
 
     console.error(
-      "Week loading error:",
+      "Initial chart loading error:",
       error
     );
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Unable to load chart data.";
+
+
+    document.getElementById(
+      "chartBody"
+    ).innerHTML = `
+      <tr>
+        <td colspan="8" class="muted">
+          Unable to load chart data.
+        </td>
+      </tr>
+    `;
 
   }
 
 }
 
 
+/* --------------------------------------------------
+   LOAD DIFFERENT WEEK
+-------------------------------------------------- */
+
+async function loadChart(week) {
+
+  /*
+    If the selected week is the same as the
+    data we already have, simply render it.
+    Do NOT call the API again.
+  */
+
+  if (
+    latestChartData &&
+    week === latestChartWeek
+  ) {
+
+    renderChart(
+      latestChartData
+    );
+
+    return;
+
+  }
+
+
+  if (loadingChart) {
+
+    return;
+
+  }
+
+
+  loadingChart = true;
+
+
+  try {
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Loading chart...";
+
+
+    let query =
+      "chart=hot100";
+
+
+    if (week) {
+
+      query +=
+        "&week=" +
+        encodeURIComponent(
+          week
+        );
+
+    }
+
+
+    const data =
+      await fetchAPI(
+        query
+      );
+
+
+    /*
+      Cache the newly selected week.
+    */
+
+    latestChartData =
+      data;
+
+    latestChartWeek =
+      data.week || week || "";
+
+
+    renderChart(data);
+
+
+  } catch (error) {
+
+    console.error(
+      "Chart loading error:",
+      error
+    );
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Unable to load chart data.";
+
+
+  } finally {
+
+    loadingChart =
+      false;
+
+  }
+
+}
+
+
+/* --------------------------------------------------
+   WEEK FORMAT
+-------------------------------------------------- */
+
 function formatWeek(value) {
 
   if (!value) {
+
     return "Latest";
+
   }
+
 
   const date =
     new Date(
-      value + "T00:00:00"
+      value +
+      "T00:00:00"
     );
+
 
   if (
     Number.isNaN(
       date.getTime()
     )
   ) {
+
     return value;
+
   }
+
 
   return date.toLocaleDateString(
     "en-US",
@@ -1061,8 +1295,13 @@ function formatWeek(value) {
       year: "numeric"
     }
   );
+
 }
 
+
+/* --------------------------------------------------
+   WEEK SELECTOR
+-------------------------------------------------- */
 
 document.getElementById(
   "weekSelect"
@@ -1078,22 +1317,13 @@ document.getElementById(
 );
 
 
-async function start() {
+/* --------------------------------------------------
+   START
+-------------------------------------------------- */
 
-  showPage("home");
+showPage("home");
 
-  await loadWeeks();
-
-  await loadChart(
-    document.getElementById(
-      "weekSelect"
-    ).value
-  );
-
-}
-
-
-start();
+initializeChart();
 
 </script>
 

@@ -3,14 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Anoracharts</title>
-
 <style>
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   background: #080808;
@@ -18,7 +15,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
 }
-
 header {
   background: #000;
   border-bottom: 1px solid #222;
@@ -26,7 +22,6 @@ header {
   top: 0;
   z-index: 20;
 }
-
 .header {
   max-width: 1200px;
   margin: auto;
@@ -36,24 +31,20 @@ header {
   justify-content: space-between;
   gap: 15px;
 }
-
 .logo {
   font-size: 20px;
   font-weight: 800;
   white-space: nowrap;
 }
-
 nav {
   display: flex;
   gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
 }
-
 nav::-webkit-scrollbar {
   display: none;
 }
-
 nav button {
   border: 0;
   background: transparent;
@@ -64,27 +55,22 @@ nav button {
   white-space: nowrap;
   font-size: 12px;
 }
-
 nav button:hover,
 nav button.active {
   background: #1a1a1a;
   color: #fff;
 }
-
 main {
   max-width: 1200px;
   margin: auto;
   padding: 24px 16px 50px;
 }
-
 .page {
   display: none;
 }
-
 .page.active {
   display: block;
 }
-
 .eyebrow {
   color: #777;
   font-size: 10px;
@@ -92,33 +78,28 @@ main {
   letter-spacing: 1.8px;
   margin-bottom: 6px;
 }
-
 h1 {
   font-size: 30px;
   margin: 0 0 6px;
   letter-spacing: -1px;
 }
-
 .subtitle {
   color: #888;
   margin: 0 0 22px;
   font-size: 13px;
 }
-
 .controls {
   display: flex;
   align-items: center;
   gap: 9px;
   margin-bottom: 12px;
 }
-
 .controls label {
   color: #666;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
 }
-
 select {
   background: #111;
   color: #fff;
@@ -127,30 +108,25 @@ select {
   padding: 7px 10px;
   font-size: 12px;
 }
-
 .status {
   color: #777;
   font-size: 11px;
   margin-bottom: 10px;
 }
-
 .table-wrap {
   width: 100%;
   overflow-x: auto;
   border: 1px solid #222;
   border-radius: 6px;
 }
-
 table {
   width: 100%;
   min-width: 720px;
   border-collapse: collapse;
 }
-
 thead {
   background: #121212;
 }
-
 th {
   color: #666;
   font-size: 9px;
@@ -160,77 +136,63 @@ th {
   border-bottom: 1px solid #222;
   white-space: nowrap;
 }
-
 td {
   padding: 9px 8px;
   border-bottom: 1px solid #171717;
   font-size: 12px;
   white-space: nowrap;
 }
-
 tbody tr:hover {
   background: #111;
 }
-
 .rank {
   font-weight: 800;
   width: 38px;
 }
-
 .song {
   font-weight: 700;
 }
-
 .artist {
   color: #999;
 }
-
 .muted {
   color: #555;
 }
-
 .up {
   color: #62d878;
   font-weight: 700;
 }
-
 .down {
   color: #ff6868;
   font-weight: 700;
 }
-
 .new {
   color: #aaa;
   font-weight: 700;
 }
-
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 20px;
 }
-
 .card {
   background: #111;
   border: 1px solid #222;
   border-radius: 7px;
   padding: 17px;
 }
-
 .card-title {
   color: #777;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-
 .card-value {
   font-size: 24px;
   font-weight: 800;
   margin-top: 6px;
 }
-
 .section-box {
   background: #111;
   border: 1px solid #222;
@@ -238,62 +200,47 @@ tbody tr:hover {
   padding: 18px;
   margin-top: 18px;
 }
-
 .section-box p {
   color: #888;
   line-height: 1.5;
 }
-
 @media (max-width: 700px) {
-
   .header {
     display: block;
     padding: 11px 12px;
   }
-
   .logo {
     margin-bottom: 8px;
   }
-
   nav {
     width: 100%;
   }
-
   nav button {
     padding: 6px 8px;
     font-size: 11px;
   }
-
   main {
     padding: 20px 10px 40px;
   }
-
   h1 {
     font-size: 26px;
   }
-
   .subtitle {
     font-size: 12px;
   }
-
   .card-grid {
     grid-template-columns: 1fr;
   }
-
   table {
     min-width: 700px;
   }
 }
 </style>
 </head>
-
 <body>
-
 <header>
   <div class="header">
-
     <div class="logo">Anoracharts</div>
-
     <nav>
       <button onclick="showPage('home')" id="nav-home">Home</button>
       <button onclick="showPage('hot100')" id="nav-hot100">Hot 100</button>
@@ -302,84 +249,55 @@ tbody tr:hover {
       <button onclick="showPage('awards')" id="nav-awards">Awards</button>
       <button onclick="showPage('records')" id="nav-records">Records</button>
     </nav>
-
   </div>
 </header>
-
 <main>
-
 <section class="page" id="home">
-
   <div class="eyebrow">ANORACHARTS</div>
-
   <h1>Personal Music Charts</h1>
-
   <p class="subtitle">
     Billboard-style charts based on your personal listening data.
   </p>
-
   <div class="card-grid">
-
     <div class="card">
       <div class="card-title">Hot 100</div>
       <div class="card-value" id="homeSongCount">—</div>
     </div>
-
     <div class="card">
       <div class="card-title">Chart Week</div>
       <div class="card-value" id="homeWeek">—</div>
     </div>
-
     <div class="card">
       <div class="card-title">Top Song</div>
       <div class="card-value" id="homeTopSong">—</div>
     </div>
-
   </div>
-
   <div class="section-box">
     <div class="card-title">This Week</div>
-
     <p>
       Explore the Anoracharts Hot 100, albums, artists, awards and
       all-time chart records.
     </p>
-
   </div>
-
 </section>
-
-
 <section class="page" id="hot100">
-
   <div class="eyebrow">WEEKLY MUSIC CHARTS</div>
-
   <h1>Hot 100</h1>
-
   <p class="subtitle">
     The biggest songs on Anoracharts based on your personal listening data.
   </p>
-
   <div class="controls">
-
     <label>CHART WEEK</label>
-
     <select id="weekSelect">
       <option value="">Loading...</option>
     </select>
-
   </div>
-
   <div class="status" id="status">
     Loading chart data...
   </div>
-
   <div class="table-wrap">
-
     <table>
-
       <thead>
-
         <tr>
           <th>RANK</th>
           <th>PREV</th>
@@ -390,80 +308,51 @@ tbody tr:hover {
           <th>WEEKS</th>
           <th>POINTS</th>
         </tr>
-
       </thead>
-
       <tbody id="chartBody">
-
         <tr>
           <td colspan="8" class="muted">
             Loading chart...
           </td>
         </tr>
-
       </tbody>
-
     </table>
-
   </div>
-
 </section>
-
-
 <section class="page" id="albums">
-
   <div class="eyebrow">ANORACHARTS</div>
-
   <h1>Album Chart</h1>
-
   <p class="subtitle">
     Weekly album rankings.
   </p>
-
   <div class="section-box">
     <p>
       The Anoracharts Album Chart will appear here.
     </p>
   </div>
-
 </section>
-
-
 <section class="page" id="artists">
-
   <div class="eyebrow">ANORACHARTS</div>
-
   <h1>Artist Chart</h1>
-
   <p class="subtitle">
     Weekly artist rankings.
   </p>
-
   <div class="section-box">
     <p>
       The Anoracharts Artist Chart will appear here.
     </p>
   </div>
-
 </section>
-
-
 <section class="page" id="awards">
-
   <div class="eyebrow">ANORACHARTS</div>
-
   <h1>Annual Awards</h1>
-
   <p class="subtitle">
     Anoracharts annual award winners.
   </p>
-
   <div class="section-box">
-
     <div class="card-title">
       19 OFFICIAL CATEGORIES
     </div>
-
     <p>
       Artist of the Year · Album of the Year · Song of the Year ·
       Best Female Artist · Best Male Artist · Best New Artist ·
@@ -473,52 +362,33 @@ tbody tr:hover {
       Best R&B Song · Best Rap Song · Best Pop Album ·
       Best R&B Album · Best Rap/Hip-Hop Album · Best African Album
     </p>
-
   </div>
-
 </section>
-
-
 <section class="page" id="records">
-
   <div class="eyebrow">ANORACHARTS</div>
-
   <h1>Records</h1>
-
   <p class="subtitle">
     Chart records and achievements.
   </p>
-
   <div class="card-grid">
-
     <div class="card">
       <div class="card-title">Most #1s</div>
       <div class="card-value">—</div>
     </div>
-
     <div class="card">
       <div class="card-title">Longest #1</div>
       <div class="card-value">—</div>
     </div>
-
     <div class="card">
       <div class="card-title">Most Weeks</div>
       <div class="card-value">—</div>
     </div>
-
   </div>
-
 </section>
-
 </main>
-
-
 <script>
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbzQgIvarGlH-2djciFMSbGJpX17-c5XCvPJo4qS3avuxJx7tqqTpONeOR1fzrGnQZ4J9w/exec";
-
-
 const pages = [
   "home",
   "hot100",
@@ -527,91 +397,62 @@ const pages = [
   "awards",
   "records"
 ];
-
-
 /* --------------------------------------------------
    MULTI-WEEK CACHE
 -------------------------------------------------- */
-
 let chartCache = {};
 let latestChartData = null;
 let latestChartWeek = "";
 let loadingChart = false;
-
-
 /* --------------------------------------------------
    PAGE NAVIGATION
 -------------------------------------------------- */
-
 function showPage(page) {
-
   pages.forEach(name => {
-
     const element =
       document.getElementById(name);
-
     const nav =
       document.getElementById("nav-" + name);
-
     if (element) {
-
       element.classList.toggle(
         "active",
         name === page
       );
-
     }
-
     if (nav) {
-
       nav.classList.toggle(
         "active",
         name === page
       );
-
     }
-
   });
-
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
 }
-
-
 /* --------------------------------------------------
    HTML SAFETY
 -------------------------------------------------- */
-
 function escapeHTML(value) {
-
   if (
     value === null ||
     value === undefined
   ) {
     return "";
   }
-
   return String(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-
 }
-
-
 /* --------------------------------------------------
    DATA HELPERS
 -------------------------------------------------- */
-
 function getValue(row, names) {
-
   for (const name of names) {
-
     if (
       row &&
       Object.prototype.hasOwnProperty.call(
@@ -621,51 +462,30 @@ function getValue(row, names) {
       row[name] !== null &&
       row[name] !== undefined
     ) {
-
       return row[name];
-
     }
-
   }
-
   return "";
-
 }
-
-
 function getRows(data) {
-
   if (
     data &&
     Array.isArray(data.data)
   ) {
-
     return data.data;
-
   }
-
   if (
     data &&
     Array.isArray(data.rows)
   ) {
-
     return data.rows;
-
   }
-
   if (Array.isArray(data)) {
-
     return data;
-
   }
-
   return [];
-
 }
-
-
 function getRank(row, index) {
-
   return getValue(row, [
     "rank",
     "Rank",
@@ -673,12 +493,8 @@ function getRank(row, index) {
     "position",
     "Position"
   ]) || index + 1;
-
 }
-
-
 function getSong(row) {
-
   return getValue(row, [
     "song",
     "Song",
@@ -687,24 +503,16 @@ function getSong(row) {
     "track",
     "Track"
   ]);
-
 }
-
-
 function getArtist(row) {
-
   return getValue(row, [
     "artist",
     "Artist",
     "artists",
     "Artists"
   ]);
-
 }
-
-
 function getPrevious(row) {
-
   return getValue(row, [
     "prev",
     "Prev",
@@ -713,12 +521,8 @@ function getPrevious(row) {
     "previousRank",
     "Previous Rank"
   ]);
-
 }
-
-
 function getMovement(row) {
-
   return getValue(row, [
     "+/-",
     "movement",
@@ -726,22 +530,14 @@ function getMovement(row) {
     "move",
     "Move"
   ]);
-
 }
-
-
 function getPeak(row) {
-
   return getValue(row, [
     "peak",
     "Peak"
   ]);
-
 }
-
-
 function getWeeks(row) {
-
   return getValue(row, [
     "WOC",
     "woc",
@@ -750,124 +546,77 @@ function getWeeks(row) {
     "weeksOnChart",
     "Weeks on Chart"
   ]);
-
 }
-
-
 function getPoints(row) {
-
   return getValue(row, [
     "points",
     "Points",
     "weeklyPoints",
     "Weekly Points"
   ]);
-
 }
-
-
 /* --------------------------------------------------
    MOVEMENT DISPLAY
 -------------------------------------------------- */
-
 function movement(value) {
-
   if (!value) {
-
     return '<span class="muted">—</span>';
-
   }
-
   const text =
     String(value).trim();
-
-
   if (
     text === "—" ||
     text === "="
   ) {
-
     return '<span class="muted">—</span>';
-
   }
-
-
   if (
     text.toUpperCase() === "NEW"
   ) {
-
     return '<span class="new">NEW</span>';
-
   }
-
-
   if (
     text.toUpperCase() === "RE"
   ) {
-
     return '<span class="new">RE</span>';
-
   }
-
-
   if (
     text.startsWith("+")
   ) {
-
     return '<span class="up">▲ ' +
       escapeHTML(
         text.substring(1)
       ) +
       '</span>';
-
   }
-
-
   if (
     text.startsWith("-")
   ) {
-
     return '<span class="down">▼ ' +
       escapeHTML(
         text.substring(1)
       ) +
       '</span>';
-
   }
-
-
   return escapeHTML(text);
-
 }
-
-
 /* --------------------------------------------------
    RENDER CHART
 -------------------------------------------------- */
-
 function renderChart(data) {
-
   /*
     The API can contain 300+ songs.
     Anoracharts Hot 100 displays only
     the first 100 ranked songs.
   */
-
   const rows =
     getRows(data).slice(0, 100);
-
-
   const body =
     document.getElementById(
       "chartBody"
     );
-
-
   body.innerHTML = "";
-
-
   if (!rows.length) {
-
     body.innerHTML = `
       <tr>
         <td colspan="8" class="muted">
@@ -875,50 +624,32 @@ function renderChart(data) {
         </td>
       </tr>
     `;
-
     return;
-
   }
-
-
   rows.forEach(
     (row, index) => {
-
       const rank =
         getRank(row, index);
-
       const previous =
         getPrevious(row);
-
       const move =
         getMovement(row);
-
       const song =
         getSong(row);
-
       const artist =
         getArtist(row);
-
       const peak =
         getPeak(row);
-
       const weeks =
         getWeeks(row);
-
       const points =
         getPoints(row);
-
-
       const tr =
         document.createElement("tr");
-
-
       tr.innerHTML = `
-
         <td class="rank">
           ${escapeHTML(rank)}
         </td>
-
         <td>
           ${
             previous !== ""
@@ -926,19 +657,15 @@ function renderChart(data) {
               : '<span class="muted">—</span>'
           }
         </td>
-
         <td>
           ${movement(move)}
         </td>
-
         <td class="song">
           ${escapeHTML(song)}
         </td>
-
         <td class="artist">
           ${escapeHTML(artist)}
         </td>
-
         <td>
           ${
             peak !== ""
@@ -946,7 +673,6 @@ function renderChart(data) {
               : '<span class="muted">—</span>'
           }
         </td>
-
         <td>
           ${
             weeks !== ""
@@ -954,7 +680,6 @@ function renderChart(data) {
               : '<span class="muted">—</span>'
           }
         </td>
-
         <td>
           ${
             points !== ""
@@ -962,226 +687,143 @@ function renderChart(data) {
               : '<span class="muted">—</span>'
           }
         </td>
-
       `;
-
-
       body.appendChild(tr);
-
     }
   );
-
-
   const week =
     data.week ||
     latestChartWeek ||
     "";
-
-
   document.getElementById(
     "status"
   ).textContent =
     "Chart week: " +
     week +
     " • Top 100";
-
-
   document.getElementById(
     "homeSongCount"
   ).textContent =
     "100";
-
-
   document.getElementById(
     "homeWeek"
   ).textContent =
     week || "—";
-
-
   document.getElementById(
     "homeTopSong"
   ).textContent =
     getSong(rows[0]) || "—";
-
 }
-
-
 /* --------------------------------------------------
    API
 -------------------------------------------------- */
-
 async function fetchAPI(query) {
-
   const response =
     await fetch(
       API_URL +
       "?" +
       query
     );
-
-
   if (!response.ok) {
-
     throw new Error(
       "API request failed"
     );
-
   }
-
-
   return await response.json();
-
 }
-
-
 /* --------------------------------------------------
    INITIAL CHART
    ONE API REQUEST
 -------------------------------------------------- */
-
 async function initializeChart() {
-
   try {
-
     document.getElementById(
       "status"
     ).textContent =
       "Loading chart data...";
-
-
     const data =
       await fetchAPI(
         "chart=hot100"
       );
-
-
     latestChartData =
       data;
-
-
     latestChartWeek =
       data.week || "";
-
-
     /*
       Save the current week in
       the multi-week cache.
     */
-
     if (data.week) {
-
       chartCache[data.week] =
         data;
-
     }
-
-
     /*
       Build the week selector from
       the same API response.
     */
-
     const select =
       document.getElementById(
         "weekSelect"
       );
-
-
     const weeks =
       Array.isArray(
         data.availableWeeks
       )
         ? data.availableWeeks
         : [];
-
-
     select.innerHTML = "";
-
-
     if (weeks.length) {
-
       weeks
         .slice()
         .reverse()
         .forEach(
           week => {
-
             const option =
               document.createElement(
                 "option"
               );
-
-
             option.value =
               week;
-
-
             option.textContent =
               formatWeek(week);
-
-
             select.appendChild(
               option
             );
-
           }
         );
-
-
       if (data.week) {
-
         select.value =
           data.week;
-
       }
-
     } else {
-
       const option =
         document.createElement(
           "option"
         );
-
-
       option.value =
         data.week || "";
-
-
       option.textContent =
         formatWeek(
           data.week
         );
-
-
       select.appendChild(
         option
       );
-
     }
-
-
     /*
       Render the same response.
       No second request.
     */
-
     renderChart(data);
-
-
   } catch (error) {
-
     console.error(
       "Initial chart loading error:",
       error
     );
-
-
     document.getElementById(
       "status"
     ).textContent =
       "Unable to load chart data.";
-
-
     document.getElementById(
       "chartBody"
     ).innerHTML = `
@@ -1191,170 +833,102 @@ async function initializeChart() {
         </td>
       </tr>
     `;
-
   }
-
 }
-
-
 /* --------------------------------------------------
    LOAD DIFFERENT WEEK
 -------------------------------------------------- */
-
 async function loadChart(week) {
-
   /*
     If we already have this week in
     our cache, display it immediately.
     NO API request.
   */
-
   if (
     chartCache[week]
   ) {
-
     latestChartData =
       chartCache[week];
-
-
     latestChartWeek =
       week;
-
-
     renderChart(
       chartCache[week]
     );
-
-
     return;
-
   }
-
-
   if (loadingChart) {
-
     return;
-
   }
-
-
   loadingChart = true;
-
-
   try {
-
     document.getElementById(
       "status"
     ).textContent =
       "Loading chart...";
-
-
     let query =
       "chart=hot100";
-
-
     if (week) {
-
       query +=
         "&week=" +
         encodeURIComponent(
           week
         );
-
     }
-
-
     const data =
       await fetchAPI(
         query
       );
-
-
     /*
       Save the new week.
     */
-
     latestChartData =
       data;
-
-
     latestChartWeek =
       data.week ||
       week ||
       "";
-
-
     /*
       Store it permanently in
       the current-page cache.
     */
-
     if (latestChartWeek) {
-
       chartCache[latestChartWeek] =
         data;
-
     }
-
-
     renderChart(data);
-
-
   } catch (error) {
-
     console.error(
       "Chart loading error:",
       error
     );
-
-
     document.getElementById(
       "status"
     ).textContent =
       "Unable to load chart data.";
-
-
   } finally {
-
     loadingChart =
       false;
-
   }
-
 }
-
-
 /* --------------------------------------------------
    WEEK FORMAT
 -------------------------------------------------- */
-
 function formatWeek(value) {
-
   if (!value) {
-
     return "Latest";
-
   }
-
-
   const date =
     new Date(
       value +
       "T00:00:00"
     );
-
-
   if (
     Number.isNaN(
       date.getTime()
     )
   ) {
-
     return value;
-
   }
-
-
   return date.toLocaleDateString(
     "en-US",
     {
@@ -1363,37 +937,25 @@ function formatWeek(value) {
       year: "numeric"
     }
   );
-
 }
-
-
 /* --------------------------------------------------
    WEEK SELECTOR
 -------------------------------------------------- */
-
 document.getElementById(
   "weekSelect"
 ).addEventListener(
   "change",
   function() {
-
     loadChart(
       this.value
     );
-
   }
 );
-
-
 /* --------------------------------------------------
    START
 -------------------------------------------------- */
-
 showPage("home");
-
 initializeChart();
-
 </script>
-
 </body>
 </html>

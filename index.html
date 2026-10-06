@@ -308,8 +308,6 @@ tbody tr:hover {
 
 <main>
 
-<!-- HOME -->
-
 <section class="page" id="home">
 
   <div class="eyebrow">ANORACHARTS</div>
@@ -351,8 +349,6 @@ tbody tr:hover {
 
 </section>
 
-
-<!-- HOT 100 -->
 
 <section class="page" id="hot100">
 
@@ -414,8 +410,6 @@ tbody tr:hover {
 </section>
 
 
-<!-- ALBUMS -->
-
 <section class="page" id="albums">
 
   <div class="eyebrow">ANORACHARTS</div>
@@ -435,8 +429,6 @@ tbody tr:hover {
 </section>
 
 
-<!-- ARTISTS -->
-
 <section class="page" id="artists">
 
   <div class="eyebrow">ANORACHARTS</div>
@@ -455,8 +447,6 @@ tbody tr:hover {
 
 </section>
 
-
-<!-- AWARDS -->
 
 <section class="page" id="awards">
 
@@ -488,8 +478,6 @@ tbody tr:hover {
 
 </section>
 
-
-<!-- RECORDS -->
 
 <section class="page" id="records">
 
@@ -542,9 +530,10 @@ const pages = [
 
 
 /* --------------------------------------------------
-   CACHE
+   MULTI-WEEK CACHE
 -------------------------------------------------- */
 
+let chartCache = {};
 let latestChartData = null;
 let latestChartWeek = "";
 let loadingChart = false;
@@ -728,6 +717,19 @@ function getPrevious(row) {
 }
 
 
+function getMovement(row) {
+
+  return getValue(row, [
+    "+/-",
+    "movement",
+    "Movement",
+    "move",
+    "Move"
+  ]);
+
+}
+
+
 function getPeak(row) {
 
   return getValue(row, [
@@ -741,6 +743,8 @@ function getPeak(row) {
 function getWeeks(row) {
 
   return getValue(row, [
+    "WOC",
+    "woc",
     "weeks",
     "Weeks",
     "weeksOnChart",
@@ -763,56 +767,76 @@ function getPoints(row) {
 
 
 /* --------------------------------------------------
-   MOVEMENT
+   MOVEMENT DISPLAY
 -------------------------------------------------- */
 
-function movement(rank, previous) {
+function movement(value) {
+
+  if (!value) {
+
+    return '<span class="muted">—</span>';
+
+  }
+
+  const text =
+    String(value).trim();
+
 
   if (
-    previous === "" ||
-    previous === null ||
-    previous === undefined
+    text === "—" ||
+    text === "="
+  ) {
+
+    return '<span class="muted">—</span>';
+
+  }
+
+
+  if (
+    text.toUpperCase() === "NEW"
   ) {
 
     return '<span class="new">NEW</span>';
 
   }
 
-  const current =
-    Number(rank);
-
-  const old =
-    Number(previous);
 
   if (
-    !Number.isFinite(current) ||
-    !Number.isFinite(old)
+    text.toUpperCase() === "RE"
   ) {
 
-    return '<span class="muted">—</span>';
+    return '<span class="new">RE</span>';
 
   }
 
-  if (current === old) {
 
-    return '<span class="muted">—</span>';
-
-  }
-
-  const difference =
-    old - current;
-
-  if (difference > 0) {
+  if (
+    text.startsWith("+")
+  ) {
 
     return '<span class="up">▲ ' +
-      difference +
+      escapeHTML(
+        text.substring(1)
+      ) +
       '</span>';
 
   }
 
-  return '<span class="down">▼ ' +
-    Math.abs(difference) +
-    '</span>';
+
+  if (
+    text.startsWith("-")
+  ) {
+
+    return '<span class="down">▼ ' +
+      escapeHTML(
+        text.substring(1)
+      ) +
+      '</span>';
+
+  }
+
+
+  return escapeHTML(text);
 
 }
 
@@ -823,13 +847,21 @@ function movement(rank, previous) {
 
 function renderChart(data) {
 
+  /*
+    The API can contain 300+ songs.
+    Anoracharts Hot 100 displays only
+    the first 100 ranked songs.
+  */
+
   const rows =
-    getRows(data);
+    getRows(data).slice(0, 100);
+
 
   const body =
     document.getElementById(
       "chartBody"
     );
+
 
   body.innerHTML = "";
 
@@ -857,6 +889,9 @@ function renderChart(data) {
 
       const previous =
         getPrevious(row);
+
+      const move =
+        getMovement(row);
 
       const song =
         getSong(row);
@@ -893,7 +928,7 @@ function renderChart(data) {
         </td>
 
         <td>
-          ${movement(rank, previous)}
+          ${movement(move)}
         </td>
 
         <td class="song">
@@ -942,25 +977,19 @@ function renderChart(data) {
     latestChartWeek ||
     "";
 
-  const count =
-    data.count ||
-    rows.length;
-
 
   document.getElementById(
     "status"
   ).textContent =
     "Chart week: " +
     week +
-    " • " +
-    count +
-    " songs";
+    " • Top 100";
 
 
   document.getElementById(
     "homeSongCount"
   ).textContent =
-    count;
+    "100";
 
 
   document.getElementById(
@@ -987,10 +1016,9 @@ async function fetchAPI(query) {
     await fetch(
       API_URL +
       "?" +
-      query +
-      "&_=" +
-      Date.now()
+      query
     );
+
 
   if (!response.ok) {
 
@@ -1000,14 +1028,15 @@ async function fetchAPI(query) {
 
   }
 
+
   return await response.json();
 
 }
 
 
 /* --------------------------------------------------
-   LOAD INITIAL DATA
-   ONE API REQUEST ONLY
+   INITIAL CHART
+   ONE API REQUEST
 -------------------------------------------------- */
 
 async function initializeChart() {
@@ -1020,11 +1049,6 @@ async function initializeChart() {
       "Loading chart data...";
 
 
-    /*
-      This is the ONLY request made when
-      the website first opens.
-    */
-
     const data =
       await fetchAPI(
         "chart=hot100"
@@ -1034,13 +1058,27 @@ async function initializeChart() {
     latestChartData =
       data;
 
+
     latestChartWeek =
       data.week || "";
 
 
     /*
-      Build week selector from the
-      same response.
+      Save the current week in
+      the multi-week cache.
+    */
+
+    if (data.week) {
+
+      chartCache[data.week] =
+        data;
+
+    }
+
+
+    /*
+      Build the week selector from
+      the same API response.
     */
 
     const select =
@@ -1073,11 +1111,14 @@ async function initializeChart() {
                 "option"
               );
 
+
             option.value =
               week;
 
+
             option.textContent =
               formatWeek(week);
+
 
             select.appendChild(
               option
@@ -1101,13 +1142,16 @@ async function initializeChart() {
           "option"
         );
 
+
       option.value =
         data.week || "";
+
 
       option.textContent =
         formatWeek(
           data.week
         );
+
 
       select.appendChild(
         option
@@ -1117,8 +1161,8 @@ async function initializeChart() {
 
 
     /*
-      Render the exact same response.
-      No second API call.
+      Render the same response.
+      No second request.
     */
 
     renderChart(data);
@@ -1160,19 +1204,27 @@ async function initializeChart() {
 async function loadChart(week) {
 
   /*
-    If the selected week is the same as the
-    data we already have, simply render it.
-    Do NOT call the API again.
+    If we already have this week in
+    our cache, display it immediately.
+    NO API request.
   */
 
   if (
-    latestChartData &&
-    week === latestChartWeek
+    chartCache[week]
   ) {
 
+    latestChartData =
+      chartCache[week];
+
+
+    latestChartWeek =
+      week;
+
+
     renderChart(
-      latestChartData
+      chartCache[week]
     );
+
 
     return;
 
@@ -1219,14 +1271,30 @@ async function loadChart(week) {
 
 
     /*
-      Cache the newly selected week.
+      Save the new week.
     */
 
     latestChartData =
       data;
 
+
     latestChartWeek =
-      data.week || week || "";
+      data.week ||
+      week ||
+      "";
+
+
+    /*
+      Store it permanently in
+      the current-page cache.
+    */
+
+    if (latestChartWeek) {
+
+      chartCache[latestChartWeek] =
+        data;
+
+    }
 
 
     renderChart(data);

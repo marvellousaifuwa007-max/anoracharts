@@ -1,44 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Anoracharts — Personal Music Charts</title>
+  <title>Anoracharts</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      background: #080808;
-      color: #ffffff;
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
+      background: #090909;
+      color: #ffffff;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* HEADER */
 
     header {
-      background: #000;
-      border-bottom: 1px solid #292929;
+      background: #000000;
+      border-bottom: 1px solid #242424;
+      padding: 20px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
 
     .header-inner {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: auto;
-      padding: 18px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -47,178 +38,91 @@
 
     .logo {
       font-size: 25px;
-      font-weight: 900;
+      font-weight: 800;
       letter-spacing: -1px;
-      white-space: nowrap;
-    }
-
-    .logo span {
-      color: #aaa;
     }
 
     nav {
       display: flex;
-      gap: 22px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    nav::-webkit-scrollbar {
-      display: none;
+      gap: 18px;
+      flex-wrap: wrap;
     }
 
     nav a {
       color: #aaa;
+      text-decoration: none;
       font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
     }
 
-    nav a:hover,
-    nav a.active {
+    nav a:hover {
       color: #fff;
     }
 
-    /* MAIN */
-
     main {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: auto;
-      padding: 45px 22px 80px;
-    }
-
-    .hero {
-      margin-bottom: 35px;
+      padding: 45px 20px 80px;
     }
 
     .eyebrow {
-      color: #888;
-      text-transform: uppercase;
+      color: #999;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 2px;
       margin-bottom: 8px;
     }
 
     h1 {
-      font-size: clamp(38px, 7vw, 76px);
-      line-height: .95;
-      letter-spacing: -4px;
-      margin-bottom: 15px;
+      font-size: 42px;
+      margin: 0 0 10px;
+      letter-spacing: -1.5px;
     }
 
     .description {
       color: #999;
-      font-size: 16px;
-      max-width: 700px;
-      line-height: 1.6;
+      margin: 0 0 35px;
+      font-size: 15px;
     }
 
-    /* CONTROLS */
-
     .controls {
-      background: #111;
-      border: 1px solid #272727;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 15px;
+      gap: 12px;
+      margin-bottom: 25px;
       flex-wrap: wrap;
     }
 
-    .control-label {
-      color: #777;
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: 800;
+    .controls label {
+      color: #999;
+      font-size: 12px;
+      font-weight: 700;
       letter-spacing: 1px;
-      display: block;
-      margin-bottom: 6px;
     }
 
     select {
-      background: #000;
-      color: #fff;
-      border: 1px solid #383838;
-      border-radius: 7px;
-      padding: 11px 35px 11px 12px;
+      background: #151515;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 10px 35px 10px 12px;
       font-size: 14px;
-      min-width: 210px;
-      outline: none;
     }
-
-    select:focus {
-      border-color: #777;
-    }
-
-    .week-info {
-      color: #aaa;
-      font-size: 13px;
-    }
-
-    .week-info strong {
-      color: #fff;
-    }
-
-    /* STATUS */
 
     .status {
-      padding: 16px;
-      border-radius: 9px;
-      margin-bottom: 20px;
-      font-size: 14px;
-      display: none;
-    }
-
-    .status.loading {
-      display: block;
       background: #111;
-      border: 1px solid #292929;
-      color: #aaa;
-    }
-
-    .status.error {
-      display: block;
-      background: #190d0d;
-      border: 1px solid #4b2020;
-      color: #ff9a9a;
-    }
-
-    /* CHART */
-
-    .chart-container {
-      background: #0d0d0d;
       border: 1px solid #242424;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .chart-header {
-      padding: 20px;
-      border-bottom: 1px solid #242424;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .chart-title {
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    .chart-date {
-      color: #888;
+      border-radius: 8px;
+      padding: 13px 15px;
+      color: #aaa;
       font-size: 13px;
+      margin-bottom: 20px;
     }
 
     .table-wrap {
-      width: 100%;
       overflow-x: auto;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      background: #0d0d0d;
     }
 
     table {
@@ -227,138 +131,103 @@
       min-width: 850px;
     }
 
+    thead {
+      background: #151515;
+    }
+
     th {
-      background: #111;
-      color: #777;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 800;
       text-align: left;
-      padding: 13px 12px;
+      color: #777;
+      font-size: 11px;
+      letter-spacing: 1px;
+      padding: 14px 12px;
       border-bottom: 1px solid #292929;
+      white-space: nowrap;
     }
 
     td {
-      padding: 14px 12px;
-      border-bottom: 1px solid #1c1c1c;
+      padding: 13px 12px;
+      border-bottom: 1px solid #1d1d1d;
       font-size: 14px;
-      vertical-align: middle;
     }
 
     tbody tr:hover {
-      background: #141414;
+      background: #151515;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
     .rank {
-      width: 60px;
-      font-size: 17px;
-      font-weight: 900;
+      width: 55px;
+      font-weight: 800;
     }
 
-    .previous {
-      width: 70px;
-      color: #888;
-      font-size: 13px;
+    .song {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .artist {
+      color: #aaa;
+    }
+
+    .muted {
+      color: #666;
     }
 
     .movement {
-      width: 75px;
-      font-weight: 900;
+      font-weight: 700;
+      white-space: nowrap;
     }
 
     .up {
-      color: #69d98c;
+      color: #54d66a;
     }
 
     .down {
-      color: #ff7777;
-    }
-
-    .same {
-      color: #777;
+      color: #ff5b5b;
     }
 
     .new {
       color: #fff;
-      font-size: 10px;
-      letter-spacing: .5px;
-      background: #333;
-      padding: 4px 7px;
-      border-radius: 4px;
     }
 
-    .song-cell {
-      min-width: 280px;
-    }
-
-    .song-title {
-      color: #fff;
-      font-weight: 800;
-      text-transform: none;
-      margin-bottom: 4px;
-    }
-
-    .artist-name {
-      color: #777;
-      font-size: 12px;
-    }
-
-    .peak {
-      font-weight: 800;
-    }
-
-    .weeks {
-      color: #aaa;
-    }
-
+    .peak,
+    .weeks,
     .points {
-      font-weight: 800;
-      text-align: right;
       white-space: nowrap;
     }
 
-    /* FOOTER */
-
     footer {
-      border-top: 1px solid #222;
-      padding: 30px 22px;
-      color: #666;
+      max-width: 1200px;
+      margin: auto;
+      padding: 25px 20px 50px;
+      color: #555;
       font-size: 12px;
-      text-align: center;
     }
 
-    /* MOBILE */
+    .error {
+      color: #ff6b6b;
+    }
 
     @media (max-width: 700px) {
+      main {
+        padding-top: 30px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
       .header-inner {
         align-items: flex-start;
         flex-direction: column;
       }
 
       nav {
-        width: 100%;
-      }
-
-      main {
-        padding: 32px 14px 60px;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .controls {
-        align-items: stretch;
-      }
-
-      select {
-        width: 100%;
-      }
-
-      .chart-header {
-        align-items: flex-start;
-        flex-direction: column;
+        gap: 12px;
       }
     }
   </style>
@@ -368,679 +237,498 @@
 
 <header>
   <div class="header-inner">
-
-    <a href="#" class="logo">
-      Anora<span>charts</span>
-    </a>
+    <div class="logo">Anoracharts</div>
 
     <nav>
-      <a href="#" class="active">Home</a>
-      <a href="#hot100">Hot 100</a>
-      <a href="#albums">Albums</a>
-      <a href="#artists">Artists</a>
-      <a href="#awards">Awards</a>
-      <a href="#records">Records</a>
+      <a href="#">Home</a>
+      <a href="#">Hot 100</a>
+      <a href="#">Albums</a>
+      <a href="#">Artists</a>
+      <a href="#">Awards</a>
+      <a href="#">Records</a>
     </nav>
-
   </div>
 </header>
 
-
 <main>
 
-  <section class="hero">
+  <div class="eyebrow">WEEKLY MUSIC CHARTS</div>
 
-    <div class="eyebrow">
-      Weekly Music Charts
-    </div>
+  <h1>Hot 100</h1>
 
-    <h1>Hot 100</h1>
+  <p class="description">
+    The biggest songs on Anoracharts based on your personal listening data.
+  </p>
 
-    <p class="description">
-      The biggest songs on Anoracharts based on your personal listening data.
-    </p>
+  <div class="controls">
+    <label for="weekSelect">CHART WEEK</label>
 
-  </section>
+    <select id="weekSelect">
+      <option value="">Loading...</option>
+    </select>
+  </div>
 
+  <div id="status" class="status">
+    Loading chart data...
+  </div>
 
-  <section class="controls">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>RANK</th>
+          <th>PREV</th>
+          <th>MOVE</th>
+          <th>SONG</th>
+          <th>ARTIST</th>
+          <th>PEAK</th>
+          <th>WEEKS</th>
+          <th>POINTS</th>
+        </tr>
+      </thead>
 
-    <div>
-      <label class="control-label" for="weekSelect">
-        Chart Week
-      </label>
-
-      <select id="weekSelect">
-        <option>Loading weeks...</option>
-      </select>
-    </div>
-
-    <div class="week-info" id="weekInfo">
-      Loading chart data...
-    </div>
-
-  </section>
-
-
-  <div id="status" class="status"></div>
-
-
-  <section class="chart-container">
-
-    <div class="chart-header">
-
-      <div class="chart-title">
-        Anoracharts Hot 100
-      </div>
-
-      <div class="chart-date" id="chartDate">
-        —
-      </div>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>Rank</th>
-            <th>Prev</th>
-            <th>Move</th>
-            <th>Song</th>
-            <th>Peak</th>
-            <th>Weeks</th>
-            <th style="text-align:right;">Points</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="chartBody"></tbody>
-
-      </table>
-
-    </div>
-
-  </section>
+      <tbody id="chartBody">
+        <tr>
+          <td colspan="8" class="muted">
+            Loading chart...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </main>
 
-
 <footer>
-  © Anoracharts — Personal Music Charts
+  © 2026 Anoracharts
 </footer>
 
-
 <script>
-
-  /*
-   * ============================================================
-   * ANORACHARTS API
-   * ============================================================
-   */
 
   const API_URL =
     "https://script.google.com/macros/s/AKfycbzQgIvarGlH-2djciFMSbGJpX17-c5XCvPJo4qS3avuxJx7tqqTpONeOR1fzrGnQZ4J9w/exec";
 
 
-  /*
-   * ============================================================
-   * ELEMENTS
-   * ============================================================
-   */
-
   const weekSelect = document.getElementById("weekSelect");
   const chartBody = document.getElementById("chartBody");
   const statusBox = document.getElementById("status");
-  const weekInfo = document.getElementById("weekInfo");
-  const chartDate = document.getElementById("chartDate");
-
-
-  /*
-   * ============================================================
-   * HELPERS
-   * ============================================================
-   */
-
-  function showLoading(message = "Loading chart...") {
-
-    statusBox.className = "status loading";
-    statusBox.textContent = message;
-
-  }
-
-
-  function showError(message) {
-
-    statusBox.className = "status error";
-    statusBox.textContent = message;
-
-  }
-
-
-  function hideStatus() {
-
-    statusBox.className = "status";
-
-  }
-
-
-  function cleanText(value) {
-
-    if (value === null || value === undefined) {
-      return "";
-    }
-
-    return String(value).trim();
-
-  }
 
 
   function escapeHTML(value) {
+    if (value === null || value === undefined) return "";
 
-    return cleanText(value)
+    return String(value)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
-
   }
 
 
-  function numberValue(value) {
+  function getRows(data) {
 
-    if (typeof value === "number") {
-      return value;
+    if (Array.isArray(data)) {
+      return data;
     }
 
-    const cleaned = cleanText(value)
-      .replace(/,/g, "")
-      .replace(/[^\d.-]/g, "");
+    if (data && Array.isArray(data.data)) {
+      return data.data;
+    }
 
-    const number = Number(cleaned);
+    if (data && Array.isArray(data.rows)) {
+      return data.rows;
+    }
 
-    return Number.isFinite(number) ? number : 0;
-
+    return [];
   }
 
 
-  function formatNumber(value) {
+  function getValue(row, possibleNames) {
 
-    return numberValue(value).toLocaleString("en-US");
+    for (const name of possibleNames) {
 
+      if (
+        row &&
+        Object.prototype.hasOwnProperty.call(row, name) &&
+        row[name] !== null &&
+        row[name] !== undefined
+      ) {
+        return row[name];
+      }
+
+    }
+
+    return "";
   }
 
 
-  /*
-   * ============================================================
-   * MOVEMENT
-   * ============================================================
-   */
+  function getRank(row, index) {
 
-  function getMovement(rank, previous) {
+    const value = getValue(row, [
+      "rank",
+      "Rank",
+      "#",
+      "position",
+      "Position"
+    ]);
 
-    const current = numberValue(rank);
-    const prev = numberValue(previous);
-
-    if (!prev || prev <= 0) {
-
-      return {
-        text: "NEW",
-        className: "new"
-      };
-
-    }
-
-    if (current < prev) {
-
-      return {
-        text: "▲ " + (prev - current),
-        className: "up"
-      };
-
-    }
-
-    if (current > prev) {
-
-      return {
-        text: "▼ " + (current - prev),
-        className: "down"
-      };
-
-    }
-
-    return {
-      text: "—",
-      className: "same"
-    };
-
+    return value || index + 1;
   }
 
 
-  /*
-   * ============================================================
-   * PEAK
-   *
-   * Your API can return values such as:
-   *
-   * 1
-   * 6x
-   *
-   * We display this cleanly as:
-   *
-   * #1
-   * 6x at #1
-   * ============================================================
-   */
+  function getSong(row) {
 
-  function formatPeak(value) {
-
-    const raw = cleanText(value);
-
-    if (!raw) {
-      return "—";
-    }
-
-    const parts = raw
-      .split(/\r?\n/)
-      .map(x => x.trim())
-      .filter(Boolean);
-
-    if (parts.length === 1) {
-
-      return "#" + parts[0];
-
-    }
-
-    const peakRank = parts[0];
-    const times = parts[1];
-
-    return "#" + peakRank + " · " + times;
-
+    return getValue(row, [
+      "song",
+      "Song",
+      "title",
+      "Title",
+      "track",
+      "Track"
+    ]);
   }
 
 
-  /*
-   * ============================================================
-   * API REQUEST
-   * ============================================================
-   */
+  function getArtist(row) {
+
+    return getValue(row, [
+      "artist",
+      "Artist",
+      "artists",
+      "Artists"
+    ]);
+  }
+
+
+  function getPrevious(row) {
+
+    return getValue(row, [
+      "prev",
+      "Prev",
+      "previous",
+      "Previous",
+      "previousRank",
+      "Previous Rank"
+    ]);
+  }
+
+
+  function getPeak(row) {
+
+    return getValue(row, [
+      "peak",
+      "Peak"
+    ]);
+  }
+
+
+  function getWeeks(row) {
+
+    return getValue(row, [
+      "weeks",
+      "Weeks",
+      "weeksOnChart",
+      "Weeks on Chart"
+    ]);
+  }
+
+
+  function getPoints(row) {
+
+    return getValue(row, [
+      "points",
+      "Points",
+      "weeklyPoints",
+      "Weekly Points"
+    ]);
+  }
+
+
+  function movementHTML(rank, previous) {
+
+    if (
+      previous === "" ||
+      previous === null ||
+      previous === undefined
+    ) {
+      return '<span class="new">NEW</span>';
+    }
+
+    const current = Number(rank);
+    const old = Number(previous);
+
+    if (
+      !Number.isFinite(current) ||
+      !Number.isFinite(old)
+    ) {
+      return '<span class="muted">—</span>';
+    }
+
+    if (old === current) {
+      return '<span class="muted">—</span>';
+    }
+
+    const difference = old - current;
+
+    if (difference > 0) {
+      return '<span class="up">▲ ' + difference + '</span>';
+    }
+
+    return '<span class="down">▼ ' + Math.abs(difference) + '</span>';
+  }
+
+
+  function renderChart(data) {
+
+    const rows = getRows(data);
+
+    chartBody.innerHTML = "";
+
+    if (!rows.length) {
+
+      chartBody.innerHTML = `
+        <tr>
+          <td colspan="8" class="muted">
+            No chart data found.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+
+    rows.forEach((row, index) => {
+
+      const rank = getRank(row, index);
+      const song = getSong(row);
+      const artist = getArtist(row);
+      const previous = getPrevious(row);
+      const peak = getPeak(row);
+      const weeks = getWeeks(row);
+      const points = getPoints(row);
+
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td class="rank">${escapeHTML(rank)}</td>
+
+        <td>
+          ${
+            previous !== ""
+              ? escapeHTML(previous)
+              : '<span class="muted">—</span>'
+          }
+        </td>
+
+        <td class="movement">
+          ${movementHTML(rank, previous)}
+        </td>
+
+        <td class="song">
+          ${escapeHTML(song)}
+        </td>
+
+        <td class="artist">
+          ${escapeHTML(artist)}
+        </td>
+
+        <td class="peak">
+          ${
+            peak !== ""
+              ? escapeHTML(peak)
+              : '<span class="muted">—</span>'
+          }
+        </td>
+
+        <td class="weeks">
+          ${
+            weeks !== ""
+              ? escapeHTML(weeks)
+              : '<span class="muted">—</span>'
+          }
+        </td>
+
+        <td class="points">
+          ${
+            points !== ""
+              ? escapeHTML(points)
+              : '<span class="muted">—</span>'
+          }
+        </td>
+      `;
+
+      chartBody.appendChild(tr);
+    });
+
+
+    const week =
+      data.week ||
+      data.Week ||
+      "";
+
+    const count =
+      data.count ||
+      rows.length;
+
+    statusBox.textContent =
+      "Chart week: " +
+      (week || "Current") +
+      " • " +
+      count +
+      " songs";
+  }
+
 
   async function fetchAPI(params = "") {
 
     const separator = params ? "?" : "";
 
-    const url = API_URL + separator + params;
-
-    const response = await fetch(url, {
-      method: "GET",
-      cache: "no-store"
-    });
+    const response = await fetch(
+      API_URL + separator + params,
+      {
+        method: "GET",
+        cache: "no-store"
+      }
+    );
 
     if (!response.ok) {
-
       throw new Error(
-        "API request failed: HTTP " + response.status
+        "API request failed: " + response.status
       );
-
     }
 
-    const text = await response.text();
-
-    let json;
-
-    try {
-
-      json = JSON.parse(text);
-
-    } catch (error) {
-
-      console.error("API returned:", text);
-
-      throw new Error(
-        "The chart API did not return valid JSON."
-      );
-
-    }
-
-    if (!json.success) {
-
-      throw new Error(
-        json.error ||
-        json.message ||
-        "The chart API returned an error."
-      );
-
-    }
-
-    return json;
-
+    return await response.json();
   }
 
 
-  /*
-   * ============================================================
-   * LOAD AVAILABLE WEEKS
-   * ============================================================
-   */
+  async function loadChart(week = "") {
+
+    statusBox.textContent =
+      "Loading chart data...";
+
+    chartBody.innerHTML = `
+      <tr>
+        <td colspan="8" class="muted">
+          Loading chart...
+        </td>
+      </tr>
+    `;
+
+    try {
+
+      let query =
+        "chart=hot100";
+
+      if (week) {
+        query +=
+          "&week=" +
+          encodeURIComponent(week);
+      }
+
+      const data =
+        await fetchAPI(query);
+
+      renderChart(data);
+
+    } catch (error) {
+
+      console.error(error);
+
+      statusBox.innerHTML =
+        '<span class="error">' +
+        'Unable to load chart data.' +
+        '</span>';
+
+      chartBody.innerHTML = `
+        <tr>
+          <td colspan="8" class="error">
+            ${escapeHTML(error.message)}
+          </td>
+        </tr>
+      `;
+    }
+  }
+
 
   async function loadWeeks() {
 
-    showLoading("Loading available chart weeks...");
-
     try {
 
-      const data = await fetchAPI("chart=hot100");
+      const data =
+        await fetchAPI("chart=hot100");
 
-      const weeks = Array.isArray(data.availableWeeks)
-        ? data.availableWeeks
-        : [];
-
-      if (!weeks.length) {
-
-        throw new Error(
-          "No chart weeks were returned by the API."
-        );
-
-      }
+      const weeks =
+        Array.isArray(data.availableWeeks)
+          ? data.availableWeeks
+          : [];
 
       weekSelect.innerHTML = "";
 
-      /*
-       * Newest week first.
-       */
+      if (!weeks.length) {
+
+        const option =
+          document.createElement("option");
+
+        option.value = "";
+
+        option.textContent =
+          data.week || "Latest week";
+
+        weekSelect.appendChild(option);
+
+        return;
+      }
+
 
       weeks
         .slice()
-        .sort()
         .reverse()
         .forEach(week => {
 
-          const option = document.createElement("option");
+          const option =
+            document.createElement("option");
 
           option.value = week;
+
           option.textContent = formatWeek(week);
 
           weekSelect.appendChild(option);
-
         });
 
 
-      /*
-       * Use the API's current week when available.
-       */
-
       if (data.week) {
-
         weekSelect.value = data.week;
-
       }
-
-
-      hideStatus();
-
-      await loadChart(weekSelect.value);
 
     } catch (error) {
 
-      console.error(error);
-
-      showError(
-        "Unable to load chart weeks. " +
-        error.message
+      console.error(
+        "Could not load weeks:",
+        error
       );
 
-      weekInfo.textContent = "Load failed";
-
-    }
-
-  }
-
-
-  /*
-   * ============================================================
-   * LOAD CHART
-   * ============================================================
-   */
-
-  async function loadChart(week) {
-
-    showLoading("Loading Hot 100...");
-
-    chartBody.innerHTML = "";
-
-    try {
-
-      const data = await fetchAPI(
-        "chart=hot100&week=" +
-        encodeURIComponent(week)
-      );
-
-
-      const rows = Array.isArray(data.data)
-        ? data.data
-        : [];
-
-
-      if (!rows.length) {
-
-        throw new Error(
-          "No chart entries were returned for this week."
-        );
-
-      }
-
-
-      renderChart(rows, data);
-
-
-      hideStatus();
-
-    } catch (error) {
-
-      console.error(error);
-
-      showError(
-        "Unable to load Anoracharts. " +
-        error.message
-      );
-
-      weekInfo.textContent = "Load failed";
-
-    }
-
-  }
-
-
-  /*
-   * ============================================================
-   * RENDER CHART
-   * ============================================================
-   */
-
-  function renderChart(rows, data) {
-
-    chartBody.innerHTML = "";
-
-
-    rows.forEach((row, index) => {
-
-      /*
-       * Support the actual Google Sheet/API field names.
-       * Also support alternate capitalization so the site
-       * remains robust if the sheet headers change slightly.
-       */
-
-      const rank =
-        row.Rank ??
-        row.rank ??
-        index + 1;
-
-
-      const previous =
-        row.Prev ??
-        row.Previous ??
-        row["Previous Rank"] ??
-        row.prev ??
-        row.previous ??
-        "";
-
-
-      const song =
-        row.Song ??
-        row.song ??
-        row.Title ??
-        row.title ??
-        "Unknown Song";
-
-
-      const artist =
-        row.Artist ??
-        row.artist ??
-        "Unknown Artist";
-
-
-      const peak =
-        row.Peak ??
-        row.peak ??
-        "";
-
-
-      const weeks =
-        row.Weeks ??
-        row.WOC ??
-        row["Weeks on Chart"] ??
-        row.weeks ??
-        row.woc ??
-        "";
-
-
-      const points =
-        row["Weekly Points"] ??
-        row.WeeklyPoints ??
-        row.Points ??
-        row.points ??
-        0;
-
-
-      const movement =
-        getMovement(rank, previous);
-
-
-      const tr = document.createElement("tr");
-
-
-      tr.innerHTML = `
-
-        <td class="rank">
-          ${escapeHTML(rank)}
-        </td>
-
-        <td class="previous">
-          ${previous
-            ? escapeHTML(previous)
-            : "—"}
-        </td>
-
-        <td class="movement ${movement.className}">
-          ${escapeHTML(movement.text)}
-        </td>
-
-        <td class="song-cell">
-
-          <div class="song-title">
-            ${escapeHTML(song)}
-          </div>
-
-          <div class="artist-name">
-            ${escapeHTML(artist)}
-          </div>
-
-        </td>
-
-        <td class="peak">
-          ${escapeHTML(formatPeak(peak))}
-        </td>
-
-        <td class="weeks">
-          ${weeks
-            ? escapeHTML(weeks)
-            : "—"}
-        </td>
-
-        <td class="points">
-          ${formatNumber(points)}
-        </td>
-
+      weekSelect.innerHTML = `
+        <option value="">
+          Latest week
+        </option>
       `;
-
-
-      chartBody.appendChild(tr);
-
-    });
-
-
-    /*
-     * Update week information.
-     */
-
-    const actualWeek =
-      data.week ||
-      weekSelect.value ||
-      "—";
-
-
-    chartDate.textContent =
-      formatWeek(actualWeek);
-
-
-    weekInfo.innerHTML =
-      "<strong>" +
-      rows.length +
-      "</strong> songs · " +
-      formatWeek(actualWeek);
-
+    }
   }
 
 
-  /*
-   * ============================================================
-   * FORMAT WEEK
-   * ============================================================
-   */
+  function formatWeek(value) {
 
-  function formatWeek(dateString) {
-
-    if (!dateString) {
-      return "—";
+    if (!value) {
+      return "Latest week";
     }
 
-    /*
-     * Keep ISO dates from the API predictable.
-     */
-
-    const parts = String(dateString).split("-");
-
-    if (parts.length !== 3) {
-      return dateString;
-    }
-
-    const year = Number(parts[0]);
-    const month = Number(parts[1]);
-    const day = Number(parts[2]);
-
-    const date = new Date(
-      year,
-      month - 1,
-      day
-    );
+    const date =
+      new Date(value + "T00:00:00");
 
     if (Number.isNaN(date.getTime())) {
-      return dateString;
+      return value;
     }
 
     return date.toLocaleDateString(
@@ -1051,33 +739,33 @@
         year: "numeric"
       }
     );
-
   }
 
-
-  /*
-   * ============================================================
-   * WEEK SELECTOR
-   * ============================================================
-   */
 
   weekSelect.addEventListener(
     "change",
     function () {
 
-      loadChart(this.value);
+      loadChart(
+        weekSelect.value
+      );
 
     }
   );
 
 
-  /*
-   * ============================================================
-   * START ANORACHARTS
-   * ============================================================
-   */
+  async function start() {
 
-  loadWeeks();
+    await loadWeeks();
+
+    await loadChart(
+      weekSelect.value
+    );
+
+  }
+
+
+  start();
 
 </script>
 

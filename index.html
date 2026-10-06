@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Anoracharts</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0b0b0f;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      border-bottom: 1px solid #292932;
+      padding: 22px 20px;
+      position: sticky;
+      top: 0;
+      background: #0b0b0f;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #a855f7;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px 80px;
+    }
+
+    .hero {
+      margin-bottom: 35px;
+    }
+
+    .eyebrow {
+      color: #a855f7;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 7vw, 70px);
+      line-height: 0.95;
+      letter-spacing: -3px;
+    }
+
+    .subtitle {
+      color: #999;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    select {
+      background: #17171e;
+      color: white;
+      border: 1px solid #34343e;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-size: 14px;
+    }
+
+    .status {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #292932;
+      border-radius: 12px;
+      background: #101016;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    th {
+      text-align: left;
+      color: #777;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      padding: 14px 12px;
+      border-bottom: 1px solid #292932;
+      background: #14141b;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #22222a;
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rank {
+      width: 50px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .song {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .artist {
+      color: #999;
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .movement {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .up {
+      color: #42d392;
+    }
+
+    .down {
+      color: #ff6678;
+    }
+
+    .same {
+      color: #777;
+    }
+
+    .new {
+      color: #a855f7;
+    }
+
+    .peak {
+      font-weight: 600;
+    }
+
+    .weeks {
+      color: #bbb;
+    }
+
+    .points {
+      font-weight: 700;
+    }
+
+    .error {
+      padding: 25px;
+      color: #ff6678;
+      background: #171016;
+      border: 1px solid #3a2028;
+      border-radius: 10px;
+    }
+
+    .loading {
+      padding: 35px;
+      text-align: center;
+      color: #888;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
+      color: #666;
+      font-size: 12px;
+      border-top: 1px solid #22222a;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        position: static;
+      }
+
+      .header-inner {
+        display: block;
+      }
+
+      nav {
+        margin-top: 15px;
+      }
+
+      main {
+        padding-top: 30px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      Anora<span>charts</span>
+    </div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Hot 100</a>
+      <a href="#">Albums</a>
+      <a href="#">Artists</a>
+      <a href="#">Awards</a>
+      <a href="#">Records</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <div class="eyebrow">
+      Weekly Music Charts
+    </div>
+
+    <h1>Hot 100</h1>
+
+    <div class="subtitle">
+      The biggest songs on Anoracharts based on your listening data.
+    </div>
+
+  </section>
+
+  <div class="controls">
+
+    <label>
+      <select id="weekSelect">
+        <option>Loading weeks...</option>
+      </select>
+    </label>
+
+  </div>
+
+  <div id="status" class="status">
+    Loading Anoracharts...
+  </div>
+
+  <div id="chartContainer">
+    <div class="loading">
+      Loading chart...
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © Anoracharts — Personal Music Charts
+</footer>
+
+<script>
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbzQgIvarGlH-2djciFMSbGJpX17-c5XCvPJo4qS3avuxJx7tqqTpONeOR1fzrGnQZ4J9w/exec";
+
+const weekSelect = document.getElementById("weekSelect");
+const chartContainer = document.getElementById("chartContainer");
+const statusText = document.getElementById("status");
+
+
+function movementHTML(value) {
+
+  if (!value || value === "—") {
+    return '<span class="movement same">—</span>';
+  }
+
+  const text = String(value).trim();
+
+  if (text.toUpperCase() === "NEW") {
+    return '<span class="movement new">NEW</span>';
+  }
+
+  if (text.startsWith("+")) {
+    return `<span class="movement up">▲ ${text.substring(1)}</span>`;
+  }
+
+  if (text.startsWith("-")) {
+    return `<span class="movement down">▼ ${text.substring(1)}</span>`;
+  }
+
+  return `<span class="movement same">${text}</span>`;
+}
+
+
+function peakHTML(value) {
+
+  if (!value) return "—";
+
+  const parts = String(value).split("\n");
+
+  const peak = parts[0] || "—";
+  const times = parts[1] || "";
+
+  if (times) {
+    return `<span class="peak">#${peak}</span>
+            <div class="artist">${times}</div>`;
+  }
+
+  return `<span class="peak">#${peak}</span>`;
+}
+
+
+function number(value) {
+
+  if (value === null || value === undefined || value === "") {
+    return "—";
+  }
+
+  return Number(value).toLocaleString();
+}
+
+
+function renderChart(data) {
+
+  if (!data || data.length === 0) {
+
+    chartContainer.innerHTML =
+      '<div class="error">No chart data found for this week.</div>';
+
+    return;
+  }
+
+  let html = `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Rank</th>
+            <th>Prev</th>
+            <th>Song</th>
+            <th>Artist</th>
+            <th>Peak</th>
+            <th>Weeks</th>
+            <th>Points</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+  `;
+
+
+  data.forEach(row => {
+
+    html += `
+
+      <tr>
+
+        <td class="rank">
+          ${row["#"] ?? "—"}
+        </td>
+
+        <td>
+          ${movementHTML(row["+/-"])}
+        </td>
+
+        <td>
+          <div class="song">
+            ${escapeHTML(row["Song"] || "")}
+          </div>
+        </td>
+
+        <td>
+          <div class="artist">
+            ${escapeHTML(row["Artist"] || "")}
+          </div>
+        </td>
+
+        <td>
+          ${peakHTML(row["Peak"])}
+        </td>
+
+        <td class="weeks">
+          ${number(row["WOC"])}
+        </td>
+
+        <td class="points">
+          ${number(row["Weekly Points"])}
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+
+  html += `
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+
+
+  chartContainer.innerHTML = html;
+}
+
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+async function loadChart(week = "") {
+
+  chartContainer.innerHTML =
+    '<div class="loading">Loading chart...</div>';
+
+  statusText.textContent =
+    "Loading Anoracharts...";
+
+
+  try {
+
+    let url =
+      `${API_URL}?chart=hot100&limit=100`;
+
+    if (week) {
+      url += `&week=${encodeURIComponent(week)}`;
+    }
+
+
+    const response =
+      await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        "API returned HTTP " + response.status
+      );
+    }
+
+
+    const result =
+      await response.json();
+
+
+    if (!result.success) {
+      throw new Error(
+        result.error || "API returned an error."
+      );
+    }
+
+
+    statusText.textContent =
+      `Week of ${result.week || "Unknown"} • ${result.count} songs`;
+
+
+    if (!week) {
+
+      weekSelect.innerHTML = "";
+
+      const weeks =
+        result.availableWeeks || [];
+
+      weeks
+        .slice()
+        .reverse()
+        .forEach(availableWeek => {
+
+          const option =
+            document.createElement("option");
+
+          option.value =
+            availableWeek;
+
+          option.textContent =
+            availableWeek;
+
+          if (availableWeek === result.week) {
+            option.selected = true;
+          }
+
+          weekSelect.appendChild(option);
+
+        });
+
+    }
+
+
+    renderChart(result.data);
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    statusText.textContent =
+      "Unable to load chart.";
+
+    chartContainer.innerHTML = `
+
+      <div class="error">
+
+        <strong>Unable to load Anoracharts.</strong>
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+weekSelect.addEventListener(
+  "change",
+  () => loadChart(weekSelect.value)
+);
+
+
+loadChart();
+
+</script>
+
+</body>
+</html>
